@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+#letterButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+}
+
+.letterButton {
+    margin: 15px;
+    padding: 20px;
+    font-size: 36px; /* Increased font size */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Increased border radius */
+    position: relative;
+    width: 100px; /* Set a fixed width */
+}
+h1{
+    font-family: 'Cosmic Sans MS',cursive,sans-serif;
+    color: #FF6F61;
+    font-size: 42px;
+}
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px; /* Increased padding */
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center align text */
+}
+
+.tooltip-image {
+    width: 150px; /* Increased image size */
+    height: auto;
+}
+
+.exampleText {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-top: 10px; /* Increased margin */
+    font-weight: bold;
+    font-size: 24px; /* Increased font size */
+}
+
+#testContainer {
+    margin-top: 20px;
+}
+
+.testButton {
+    margin: 15px;
+    padding: 20px;
+    font-size: 28px; /* Increased font size */
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Increased border radius */
+}

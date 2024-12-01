@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BrainlyQuest</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #6C63FF;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #6C63FF;
+            outline: none;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .toggle-form a {
+            color: #6C63FF;
+            text-decoration: none;
+        }
+
+        .guest-option {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .guest-option a {
+            color: #6C63FF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+            padding-top: 60px; /* Space from the top */
+        }
+
+        .modal-content {
+            background-color: #fffcf9;
+            margin: auto; /* Center the modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; /* Set a smaller width */
+            max-width: 80%; /* Responsive max width */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            top: 50%; /* Move down 50% */
+            transform: translateY(-50%); /* Adjust to center vertically */
+            animation: slideIn 0.5s; /* Slide in animation */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #ff6f61;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ff4c4c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cta-button {
+            background-color: #6C63FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius : 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for button hover */
+        }
+
+        .cta-button:hover {
+            background-color: #5a54d1; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="brain.png" style="height: 50px; width: 50px;" alt="BrainlyQuest Logo">
+            <span>BrainlyQuest</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div id="loginForm" class="active">
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="cta-button">Login</button>
+            </form>
+            <div class="toggle-form">
+                <p>Don't have an account? <a href="#" onclick="toggleForms()">Sign Up</a></p>
+            </div>
+        </div>
+
+        <div id="signupForm" style="display: none;">
+            <h2>Sign Up</h2>
+            <form onsubmit="openVerificationModal(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="cta-button">Sign Up</button>
+            </form>
+            <div class="toggle-form">
+                <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
+            </div>
+        </div>
+
+        <div class="guest-option">
+            <p><a href="game.html">Continue as Guest</a></p>
+        </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeVerificationModal()">&times;</span>
+            <h2 style="color: #ff6f61;">Verification</h2>
+            <form id="verificationForm" onsubmit="submitVerification(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" required min="0">
+                </div>
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+            signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function openVerificationModal(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById('verificationModal').style.display = "block";
+        }
+
+        function closeVerificationModal() {
+            document.getElementById('verificationModal').style.display = "none";
+        }
+
+        function submitVerification(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementById('username').value;
+            const age = document.getElementById('age').value;
+            // Handle the verification data (e.g., send it to the server)
+            console.log(`Username: ${username}, Age: ${age}`);
+            closeVerificationModal(); // Close the modal after submission
+            alert("Verification successful! Welcome to BrainlyQuest!");
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('verificationModal');
+            if (event.target === modal) {
+                closeVerificationModal();
+            }
+        }
+    </script>
+</body>
+</html>
